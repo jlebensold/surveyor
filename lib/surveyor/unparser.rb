@@ -110,7 +110,7 @@ class DependencyCondition < ActiveRecord::Base
     dsl << "_#{rule_key}" unless rule_key.blank?
     dsl << " :q_#{question.reference_identifier}, \"#{operator}\""
     dsl << (attrs.blank? ? ", {:answer_reference=>\"#{answer && answer.reference_identifier}\"}\n" : ", {#{attrs.inspect.gsub(/\{|\}/, "")}, :answer_reference=>\"#{answer && answer.reference_identifier}\"}\n")
-  end  
+  end
 end
 class Answer < ActiveRecord::Base
   # nonblock
@@ -125,7 +125,7 @@ class Answer < ActiveRecord::Base
     dsl << "_#{reference_identifier}" unless reference_identifier.blank?
     if response_class.to_s.titlecase == text && attrs == {:display_type => "hidden_label"}
       dsl << " :#{response_class}"
-    else    
+    else
       dsl << [ text.blank? ? nil : text == "Other" ? " :other" : text == "Omit" ? " :omit" : " \"#{text}\"",
                 (response_class.blank? or response_class == "answer") ? nil : " #{response_class.to_sym.inspect}",
                 attrs.blank? ? nil : " #{attrs.inspect.gsub(/\{|\}/, "")}\n"].compact.join(",")
